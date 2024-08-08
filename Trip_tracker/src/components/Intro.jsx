@@ -5,11 +5,13 @@ import { Form } from "react-router-dom";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 
 // assets
-import illustration from "../assets/illustration.png";
+import illustration from "../assets/illustration.png"; // Use the appropriate image file from your assets
 
 const Intro = () => {
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const [password, setPassword] = useState("");
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   const handleEmailChange = (event) => {
     const value = event.target.value;
@@ -18,29 +20,37 @@ const Intro = () => {
     setIsEmailValid(emailPattern.test(value));
   };
 
+  const handlePasswordChange = (event) => {
+    const value = event.target.value;
+    setPassword(value);
+    // Simple password validation, you can customize the pattern
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // At least 8 characters, with at least one letter and one number
+    setIsPasswordValid(passwordPattern.test(value));
+  };
+
   return (
     <div className="intro">
       <div>
         <h1>
-          Track <span className="accent">Your Trip</span>
+          Take Control of <span className="accent">Your Money</span>
         </h1>
-        <p>Personal trip budgeting is the secret to finance management.</p>
+        <p>Personal budgeting is the secret to financial freedom. Start your journey today.</p>
         <Form method="post">
           <input
             type="text"
             name="userName"
             required
-            placeholder="Username"
+            placeholder="What is your name?"
             aria-label="Your Name"
             autoComplete="given-name"
           />
           <input
             type="text"
-            name="mail"
+            name="email"
             required
-            placeholder="Email id"
-            aria-label="mail"
-            autoComplete="given-name"
+            placeholder="Email ID"
+            aria-label="Email"
+            autoComplete="email"
             pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
             title="Please enter a valid email"
             value={email}
@@ -52,9 +62,14 @@ const Intro = () => {
             required
             placeholder="Password"
             aria-label="Your Password"
-            autoComplete="given-password"
+            autoComplete="new-password"
+            value={password}
+            onChange={handlePasswordChange}
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+            title="Password must be at least 8 characters long, containing both letters and numbers"
           />
-          <button type="submit" className="btn btn--dark" disabled={!isEmailValid}>
+          <input type="hidden" name="_action" value="newUser" />
+          <button type="submit" className="btn btn--dark" disabled={!isEmailValid || !isPasswordValid}>
             <span>Create Account</span>
             <UserPlusIcon width={20} />
           </button>
