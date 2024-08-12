@@ -31,6 +31,7 @@ svg {
 
   /* colors */
   --accent: 183 74% 44%;
+  --highlight: 183 74% 44%;
   --bkg: 190 60% 98%;
   --text: 185 26% 9%;
   --muted: 183 8% 55%;
@@ -52,6 +53,7 @@ svg {
 
   /* toast customizations */
   --toastify-color-success: hsl(var(--accent));
+  --toastify-color-success: hsl(var(--highlight));
 }
 
 body {
@@ -109,6 +111,10 @@ p {
 
 .accent {
   color: hsl(var(--accent));
+}
+
+.highlight {
+  color: hsl(var(--highlight));
 }
 
 .muted {
